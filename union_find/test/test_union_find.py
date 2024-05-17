@@ -7,4 +7,4 @@ def test_init():
     ds.join('one', 'two', 'three', 'four', 'five')
     assert len(ds.components) == 2
     ds.join(True, False)
-    assert len(ds.components) == 2  # because True == 1
+    assert len(ds.components) == 3

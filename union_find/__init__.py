@@ -20,7 +20,7 @@ class UnionFindStructure:
 
     def _get_root(self, x: Hashable):
         p = self._parent.get(x)
-        if p is not None and p != x:
+        if p is not None and p is not x:
             p = self._parent[x] = self._get_root(p)
         return p
 
@@ -47,7 +47,7 @@ class UnionFindStructure:
         self.insert(x)
         self.insert(y)
         root_x, root_y = self._get_root(x), self._get_root(y)
-        if root_x != root_y:
+        if root_x is not root_y:
             if self._rank[root_x] < self._rank[root_y]:
                 self._parent[root_x] = root_y
             else:
@@ -57,7 +57,7 @@ class UnionFindStructure:
 
     def get_component(self, x: Hashable):
         r = self._get_root(x)
-        return [k for k in self._parent if self._get_root(k) == r]
+        return [k for k in self._parent if self._get_root(k) is r]
 
     @property
     def components(self):
