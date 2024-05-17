@@ -30,19 +30,20 @@ class UnionFindStructure:
     def __contains__(self, item: Hashable):
         return item in self._parent
 
-    def join_many(self, *args: Hashable):
-        if args:
-            for other in args[1:]:
-                self.join(args[0], other)
-
-    def join(self, x: Hashable, y: Hashable):
+    def join(self, x: Hashable, y: Hashable, *args: Hashable):
         """
-        Merges the components of items x and y. If x or y is not present in the
-        data structure, it is added before the merger.
+        Merges the components of all input items. Any item not present in the
+        data structure is added before the merger.
         :param x: first item
         :param y: second item
+        :param args: any additional items
         :return: None
         """
+        self._join(x, y)
+        for other in args:
+            self._join(x, other)
+
+    def _join(self, x: Hashable, y: Hashable):
         self.insert(x)
         self.insert(y)
         root_x, root_y = self._get_root(x), self._get_root(y)
