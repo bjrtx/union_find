@@ -25,6 +25,11 @@ class UnionFindStructure:
         return p
 
     def insert(self, item: Hashable):
+        """
+        Inserts an item in the data structure if it is not already present.
+        :param item: item to insert
+        :return: None
+        """
         self._parent.setdefault(item, item)
 
     def __contains__(self, item: Hashable):
@@ -55,12 +60,20 @@ class UnionFindStructure:
                 if self._rank[root_x] == self._rank[root_y]:
                     self._rank[root_x] += 1
 
-    def get_component(self, x: Hashable):
-        r = self._get_root(x)
+    def get_component(self, item: Hashable) -> list[Hashable]:
+        """
+        Returns all items in the same component as the input item.
+        :param item: item whose component is sought.
+        :return: a list of all items in the component.
+        """
+        r = self._get_root(item)
         return [k for k in self._parent if self._get_root(k) is r]
 
     @property
-    def components(self):
+    def components(self) -> list[list[Hashable]]:
+        """
+        The components in the data structure as a list of lists.
+        """
         return [
             list(g)
             for _, g in itertools.groupby(self._parent, key=self._get_root)

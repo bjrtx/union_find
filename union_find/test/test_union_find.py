@@ -8,3 +8,5 @@ def test_init():
     assert len(ds.components) == 2
     ds.join(True, False)
     assert len(ds.components) == 3
+    ds.join(1, True)
+    assert len(ds.components) == 2
